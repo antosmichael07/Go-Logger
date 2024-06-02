@@ -9,6 +9,13 @@ import (
 
 func Log(message string) {
 	_, caller, line, _ := runtime.Caller(1)
+	for i := len(caller) - 1; i >= 0; i-- {
+		if caller[i] == '/' {
+			caller = caller[i+1:]
+			break
+		}
+	}
+
 	str := fmt.Sprintf("[%s] [%s:%d] %s", time.Now().String()[:19], caller, line, message)
 
 	fmt.Println(str)
