@@ -3,11 +3,13 @@ package logger
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"time"
 )
 
-func Log(location string, message string) {
-	str := fmt.Sprintf("[%s] [%s] %s", time.Now().String()[:19], location, message)
+func Log(message string) {
+	_, caller, line, _ := runtime.Caller(1)
+	str := fmt.Sprintf("[%s] [%s:%d] %s", time.Now().String()[:19], caller, line, message)
 
 	fmt.Println(str)
 
