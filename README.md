@@ -12,6 +12,6 @@ package main
 import logger "github.com/antosmichael07/Go-Logger"
 
 func main() {
-	logger.Log("main.go:6", "Hello World")
+	logger.Log("Hello World")
 }
 ```
