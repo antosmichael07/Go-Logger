@@ -16,6 +16,7 @@ func main() {
 	logger.Log("test")
 
 	logger.Directory = "other"
+	logger.Output.Console = false
 
 	logger.Log("test %d", 1)
 }
