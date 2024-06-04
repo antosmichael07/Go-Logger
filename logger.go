@@ -9,11 +9,21 @@ import (
 
 type Logger struct {
 	Directory string
+	Output    Output
+}
+
+type Output struct {
+	Console bool
+	File    bool
 }
 
 func NewLogger() Logger {
 	return Logger{
 		Directory: "logs",
+		Output: Output{
+			Console: true,
+			File:    true,
+		},
 	}
 }
 
@@ -29,13 +39,17 @@ func (logger Logger) Log(message string, args ...interface{}) {
 	msg := fmt.Sprintf(message, args...)
 	str := fmt.Sprintf("[%s] [%s:%d] %s\n", time.Now().String()[:19], caller, line, msg)
 
-	fmt.Print(str)
-
-	if _, err := os.Stat(fmt.Sprintf("./%s", logger.Directory)); os.IsNotExist(err) {
-		os.Mkdir(fmt.Sprintf("./%s", logger.Directory), 0755)
+	if logger.Output.Console {
+		fmt.Print(str)
 	}
 
-	file, _ := os.OpenFile(fmt.Sprintf("./%s/%s.txt", logger.Directory, time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	file.WriteString(str)
-	file.Close()
+	if logger.Output.File {
+		if _, err := os.Stat(fmt.Sprintf("./%s", logger.Directory)); os.IsNotExist(err) {
+			os.Mkdir(fmt.Sprintf("./%s", logger.Directory), 0755)
+		}
+
+		file, _ := os.OpenFile(fmt.Sprintf("./%s/%s.txt", logger.Directory, time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		file.WriteString(str)
+		file.Close()
+	}
 }
