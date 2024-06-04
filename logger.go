@@ -17,7 +17,7 @@ func NewLogger() Logger {
 	}
 }
 
-func (logger Logger) Log(message string) {
+func (logger Logger) Log(message string, args ...interface{}) {
 	_, caller, line, _ := runtime.Caller(1)
 	for i := len(caller) - 1; i >= 0; i-- {
 		if caller[i] == '/' {
@@ -26,15 +26,16 @@ func (logger Logger) Log(message string) {
 		}
 	}
 
-	str := fmt.Sprintf("[%s] [%s:%d] %s", time.Now().String()[:19], caller, line, message)
+	msg := fmt.Sprintf(message, args...)
+	str := fmt.Sprintf("[%s] [%s:%d] %s\n", time.Now().String()[:19], caller, line, msg)
 
-	fmt.Println(str)
+	fmt.Print(str)
 
 	if _, err := os.Stat(fmt.Sprintf("./%s", logger.Directory)); os.IsNotExist(err) {
 		os.Mkdir(fmt.Sprintf("./%s", logger.Directory), 0755)
 	}
 
 	file, _ := os.OpenFile(fmt.Sprintf("./%s/%s.txt", logger.Directory, time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	file.WriteString(str + "\n")
+	file.WriteString(str)
 	file.Close()
 }

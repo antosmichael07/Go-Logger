@@ -17,6 +17,6 @@ func main() {
 
 	logger.Directory = "other"
 
-	logger.Log("test")
+	logger.Log("test %d", 1)
 }
 ```
