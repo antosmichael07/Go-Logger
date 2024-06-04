@@ -1,7 +1,6 @@
 # Go-Logger
 
-A simple library, that makes messages to the console more convenient to debug. The messages are saved to `logs` directory.<br>
-
+A simple library, that makes messages to the console more convenient to debug. The messages are saved to `logs` directory.<hr>
 Install with `go get github.com/antosmichael07/Go-Logger`
 
 ## Example
