@@ -1,4 +1,4 @@
-package logger
+package custom_logger
 
 import (
 	"fmt"
@@ -7,7 +7,17 @@ import (
 	"time"
 )
 
-func Log(message string) {
+type Logger struct {
+	Directory string
+}
+
+func NewLogger() Logger {
+	return Logger{
+		Directory: "logs",
+	}
+}
+
+func (logger Logger) Log(message string) {
 	_, caller, line, _ := runtime.Caller(1)
 	for i := len(caller) - 1; i >= 0; i-- {
 		if caller[i] == '/' {
@@ -20,11 +30,11 @@ func Log(message string) {
 
 	fmt.Println(str)
 
-	if _, err := os.Stat("./logs"); os.IsNotExist(err) {
-		os.Mkdir("./logs", 0755)
+	if _, err := os.Stat(fmt.Sprintf("./%s", logger.Directory)); os.IsNotExist(err) {
+		os.Mkdir(fmt.Sprintf("./%s", logger.Directory), 0755)
 	}
 
-	file, _ := os.OpenFile(fmt.Sprintf("./logs/%s.txt", time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, _ := os.OpenFile(fmt.Sprintf("./%s/%s.txt", logger.Directory, time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	file.WriteString(str + "\n")
 	file.Close()
 }
