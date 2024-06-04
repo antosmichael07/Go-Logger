@@ -8,9 +8,15 @@ Install with `go get github.com/antosmichael07/Go-Logger`
 ```go
 package main
 
-import logger "github.com/antosmichael07/Go-Logger"
+import custom_logger "github.com/antosmichael07/Go-Logger"
 
 func main() {
-	logger.Log("Hello World")
+	logger := custom_logger.NewLogger()
+
+	logger.Log("test")
+
+	logger.Directory = "other"
+
+	logger.Log("test")
 }
 ```
