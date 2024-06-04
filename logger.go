@@ -10,6 +10,7 @@ import (
 type Logger struct {
 	Directory string
 	Output    Output
+	Level     int
 }
 
 type Output struct {
@@ -28,7 +29,7 @@ func NewLogger() Logger {
 }
 
 func (logger Logger) Log(message string, args ...interface{}) {
-	_, caller, line, _ := runtime.Caller(1)
+	_, caller, line, _ := runtime.Caller(logger.Level)
 	for i := len(caller) - 1; i >= 0; i-- {
 		if caller[i] == '/' {
 			caller = caller[i+1:]
