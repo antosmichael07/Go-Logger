@@ -13,11 +13,11 @@ import custom_logger "github.com/antosmichael07/Go-Logger"
 func main() {
 	logger := custom_logger.NewLogger()
 
-	logger.Log("test")
+	logger.Log(custom_logger.Info, "test")
 
 	logger.Directory = "other"
 	logger.Output.Console = false
 
-	logger.Log("test %d", 1)
+	logger.Log(custom_logger.Info, "test %d", 1)
 }
 ```

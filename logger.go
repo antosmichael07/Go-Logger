@@ -35,6 +35,8 @@ func NewLogger() Logger {
 			Console: true,
 			File:    true,
 		},
+		Level: Info,
+		Name: "",
 	}
 }
 
