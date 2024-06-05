@@ -28,7 +28,7 @@ const (
 	None
 )
 
-func NewLogger() Logger {
+func NewLogger(name string) Logger {
 	return Logger{
 		Directory: "logs",
 		Output: Output{
@@ -36,7 +36,7 @@ func NewLogger() Logger {
 			File:    true,
 		},
 		Level: Info,
-		Name: "",
+		Name: name,
 	}
 }
 
