@@ -36,12 +36,12 @@ func NewLogger(name string) Logger {
 			File:    true,
 		},
 		Level: Info,
-		Name: name,
+		Name:  name,
 	}
 }
 
 func (logger Logger) Log(level Level, message string, args ...interface{}) {
-	if logger.Level >= level {
+	if logger.Level <= level {
 		level_as_string := []string{"Info", "Warning", "Error", "None"}
 
 		_, caller, line, _ := runtime.Caller(1)
