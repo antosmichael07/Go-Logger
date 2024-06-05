@@ -23,7 +23,7 @@ type Level int
 
 const (
 	Info Level = iota
-	Warining
+	Warning
 	Error
 	None
 )
