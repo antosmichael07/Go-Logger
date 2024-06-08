@@ -1,4 +1,4 @@
-package custom_logger
+package lgr
 
 import (
 	"fmt"
