@@ -8,16 +8,23 @@ Install with `go get github.com/antosmichael07/Go-Logger`
 ```go
 package main
 
-import custom_logger "github.com/antosmichael07/Go-Logger"
+import lgr "github.com/antosmichael07/Go-Logger"
 
 func main() {
-	logger := custom_logger.NewLogger()
+	// We specify the name, when creating the logger
+	logger := lgr.NewLogger("example")
 
-	logger.Log(custom_logger.Info, "test")
+	// The log function prints into a file and into the console with the level of info, warning or error and the message, with the date, time and the location where it was called
+	// You can also put arguments at the end, like in the printf function
+	logger.Log(lgr.Info, "test %d", 1)
 
+	// We can customize where to put the logs
 	logger.Directory = "other"
+	// We can customize if we want to print then to the console or into files
 	logger.Output.Console = false
-
-	logger.Log(custom_logger.Info, "test %d", 1)
+	logger.Output.File = false
+	// We can customize which levels do we want to print
+	// For example this would print only the logs with the level warning or higher, which means it would log only warnings and errors
+	logger.Level = lgr.Warning
 }
 ```
