@@ -50,7 +50,17 @@ func NewLogger(name string, dir string, file_out bool) (logger Logger, err error
 		}
 		// Open the file where logs will be saved
 		if file, err = os.OpenFile(fmt.Sprintf("./%s/%s.txt", dir, time.Now().String()[:10]), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644); err != nil {
-			return Logger{}, err
+			return Logger{
+				Directory: dir,
+				Output: Output{
+					Console: true,
+					File:    file_out,
+				},
+				Level:      Info,
+				Name:       name,
+				File:       file,
+				OpenedFile: time.Now().String()[:10],
+			}, err
 		}
 	}
 
